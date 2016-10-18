@@ -1,0 +1,300 @@
+/* Coughing patient */
+Condition coughing_patient:
+	"Symptom present" is cough
+	
+/* Coughing for 21 days or more */
+Condition coughing_21_days_or_more:
+	"Cough duration" >= 21 days
+
+/* Patient with Diarrhea */
+Condition diarrhea_patient:
+	"Symptom present" is diarrhea
+	
+/* Diarrhea for 14 days or more */
+Condition diarrhea_14_days_or_more:
+	"Diarrhea duration" >= 14 days
+	
+/* Diarrhea for less than 14 days */
+Condition diarrhea_less_14_days:
+	"Diarrhea duration" < 14 days
+	
+/* Blood in stool */
+Condition blood_in_stool:
+	"Symptom present" is "Blood in stool"
+	
+/* Patient with fever */
+Condition presenting_with_fever:
+	"Symptom present" is fever
+	
+/* Fever more than 7 days */
+Condition fever_7_days_or_more:
+	"Fever duration" >= 7 days
+	
+/* Fever less than 7 days */
+Condition fever_less_7_days:
+	"Fever duration" < 7 days
+
+/* Patient with convulsions */
+Condition convulsion_patient:
+	"Symptom present" is convulsion
+	
+/* Patient with feeding difficulties */
+Condition feeding_problems:
+	"Symptom present" is "feeding problems"	
+	
+/* Not able to drink or feed anything */
+Condition not_able_to_drink_or_feed:
+	"Not able to drink or feed" is Yes	
+
+/* Able to drink or feed */
+Condition able_to_drink_or_feed:
+	"Not Able to drink or feed" is No		
+		
+/* Patient vomiting */
+Condition vomiting_patient:
+	vomiting is Yes	
+
+/* Patient vomiting everything */
+Condition vomiting_everything:
+	"Vomiting everything" is Yes	
+	
+/* Patient presenting with red eyes */
+Condition red_eyes:
+	"Symptom present" is "Red eye"	
+	
+/* Red eyes for 4 days or more */
+Condition red_eyes_for_4_days_or_more:
+	"Red eye duration" >= 4 days
+			
+/* Red eyes for less than 4 days */
+Condition red_eyes_less_4_days:
+	"Red eye duration" < 4 days
+			
+/* Patient with vision difficulties */
+Condition vision_difficulties:
+	"Symptom present" is "Vision dificulties"	
+	
+/* Patient with potential chest indrawing */
+Condition chest_indrawing:
+	"Symptom present" is "potential chest indrawing"	
+	
+/* Breath count of 50 bpm or more */
+Condition breath_count_of_50_or_more:
+	"Breath count" >= 50 bpm
+	
+/* Breath count of 40 bpm or more */
+Condition breath_count_of_40_or_more:
+	"Breath count" >= 40 bpm
+
+/* Breath count of less than 50 bpm */
+Condition breath_count_less_50:
+	"Breath count" < 50 bpm
+
+/* Age 2 months or more */
+Condition age_2_months_or_more:
+	"age" >= 2 months
+	
+/* Age 12 months or more */
+Condition age_12_months_or_more:
+	"age" >= 12 months
+
+/* Age 6 months or more */
+Condition age_6_months_or_more:
+	"age" >= 6 months
+
+/* Age less than 5 years */
+Condition age_less_5_years:
+	"age" < 5 years
+
+/* Age less than 12 months */
+Condition age_less_12_months:
+	"age" < 12 months
+
+/* Unconscious Patient*/
+Condition unconscious:
+	"Symptom present" is "Very sleepy or unconscious"	
+	
+/* Patient presenting with palmar pallor */
+Condition palmar_pallor:
+	"Symptom present" is "Palmar pallor"	
+	
+/* Patient presenting with swelling of both feet */
+Condition swelling_feet:
+	"Symptom present" is "Swelling of both feet"
+	
+/* Patient presenting with severe wasting */diarrhea
+Condition severe_wasting:
+	"MUAC" < 11.5 cm
+	
+/* Give ORS solution */	
+Action give_ors_solution:
+	Administer "ORS solution"
+	
+/* Prescribe ORS solution */	
+Action prescribe_ors_solution:
+	Prescribe "ORS solution"
+	
+/* Give Zinc */	
+Action give_zinc:
+	Administer "Zinc"
+
+/* Prescribe Zinc */	
+Action prescribe_zinc:
+	Prescribe "Zinc"
+	
+/* Give LA */	
+Action give_la:
+	Administer "LA"
+		
+/* Give antibiotic eye ointment */	
+Action give_antibiotic_eye_ointment:
+	Administer "Antibiotic eye ointment"
+		
+/* Prescribe antibiotic eye ointment */	
+Action prescribe_antibiotic_eye_ointment:
+	Prescribe "Antibiotic eye ointment"
+		
+/* Give oral antibiotic */	
+Action give_oral_antibiotic:
+	Administer "Oral antibiotic"
+		
+/* Prescribe oral antibiotic*/	
+Action prescribe_oral_antibiotic:
+	Prescribe "Oral antibiotic"
+		
+/* Prescribe LA */	
+Action prescribe_la:
+	Prescribe "LA"
+		
+/* Prescribe Paracetamol */	
+Action prescribe_paracetamol:
+	Prescribe "Paracetamol"
+		
+/* Refer to health facility */
+Action refer_to_facility:
+	"Refer to" "Health facility"
+	
+/* Advise caregiver to use an ITN */
+Action advise_to_use_ITN:
+	"Advise caregiver" "Use ITN"
+
+/* Advise caregiver to continue giving fluids and feeding */
+Action advise_to_give_fluids_and_feed:
+	"Advise caregiver" "Continue to give fluids and feeding"
+		
+/* Schedule followup appointment */
+Action schedule_followup_appointment:
+	"Schedule" "followup appointment"
+		
+/* Managing cough of 21 days or more */		
+Recommendation cough_21_days_or_more:
+	Conditions coughing_patient, coughing_21_days_or_more
+	Actions refer_to_facility, advise_to_give_fluids_and_feed
+		
+/* Managing diarrhea of 14 days or more */		
+Recommendation can_feed_with_severe_diarrhea:
+	Conditions able_to_drink_or_feed, diarrhea_patient, diarrhea_14_days_or_more
+	Actions give_ors_solution, refer_to_facility, advise_to_give_fluids_and_feed
+		
+/* Managing diarrhea with blood in stool */		
+Recommendation diarrhea_with_blood_in_stool:
+	Conditions able_to_drink_or_feed, diarrhea_patient, blood_in_stool
+	Actions give_ors_solution, refer_to_facility, advise_to_give_fluids_and_feed
+	
+/* Managing diarrhea of less than 14 days */		
+Recommendation can_feed_with_mild_diarrhea:
+	Conditions able_to_drink_or_feed, diarrhea_patient, diarrhea_less_14_days
+	Actions  give_ors_solution, prescribe_ors_solution, 
+		give_zinc, prescribe_zinc, advise_to_give_fluids_and_feed,
+		schedule_followup_appointment
+	
+/* Managing fever of 7 days or more */		
+Recommendation can_feed_with_severe_fever:
+	Conditions able_to_drink_or_feed, presenting_with_fever, fever_7_days_or_more
+	Actions give_la, refer_to_facility, advise_to_give_fluids_and_feed
+		
+/* Managing fever of less than 7 days */		
+Recommendation can_feed_with_mild_fever:
+	Conditions able_to_drink_or_feed, presenting_with_fever, fever_less_7_days
+	Actions give_la, prescribe_la, advise_to_use_ITN, prescribe_paracetamol,
+		advise_to_give_fluids_and_feed, schedule_followup_appointment
+	
+/* Managing a patient presenting with convulsions */		
+Recommendation can_feed_with_convulsions:
+	Conditions able_to_drink_or_feed, convulsion_patient
+	Actions refer_to_facility, advise_to_give_fluids_and_feed
+	
+/* Managing a patient that is not able to drink or feed anything */		
+Recommendation not_able_to_drink_or_feed_anything:
+	Conditions feeding_problems, not_able_to_drink_or_feed
+	Actions refer_to_facility
+
+/* Managing a patient presenting with severe wasting */		
+Recommendation managing_severe_wasting:
+	Conditions severe_wasting, age_6_months_or_more, age_less_5_years
+	Actions refer_to_facility, advise_to_give_fluids_and_feed
+
+/* Managing a patient that is vomiting everything */		
+Recommendation can_feed_but_vomits_everything:
+	Conditions able_to_drink_or_feed, vomiting_patient, vomiting_everything
+	Actions refer_to_facility, advise_to_give_fluids_and_feed
+	
+/* Managing a patient that is very sleepy or unconscious */		
+Recommendation very_sleepy_or_unconscious:
+	Conditions unconscious
+	Actions refer_to_facility, advise_to_give_fluids_and_feed
+
+/* Managing a patient that has palmar pallor */		
+Recommendation managing_palmar_pallor:
+	Conditions palmar_pallor
+	Actions refer_to_facility, advise_to_give_fluids_and_feed
+	
+/* Managing a patient that has swelling of both feet */		
+Recommendation managing_swollen_feet:
+	Conditions swelling_feet
+	Actions refer_to_facility, advise_to_give_fluids_and_feed
+	
+/* Managing red eyes of 4 days or more */		
+Recommendation can_feed_with_severe_red_eyes:
+	Conditions able_to_drink_or_feed, red_eyes, red_eyes_for_4_days_or_more
+	Actions give_antibiotic_eye_ointment, refer_to_facility, advise_to_give_fluids_and_feed
+	
+/* Managing red eyes with vision difficulties */		
+Recommendation can_feed_with_red_eyes_and_vision_difficulties:
+	Conditions able_to_drink_or_feed, red_eyes, vision_difficulties
+	Actions give_antibiotic_eye_ointment, refer_to_facility, advise_to_give_fluids_and_feed
+	
+/* Managing red eyes of less than 4 days */		
+Recommendation can_feed_with_mild_red_eyes:
+	Conditions able_to_drink_or_feed, red_eyes, red_eyes_less_4_days
+	Actions give_antibiotic_eye_ointment, prescribe_antibiotic_eye_ointment,
+		advise_to_give_fluids_and_feed, schedule_followup_appointment 
+	
+/* Managing chest indrawing */		
+Recommendation can_feed_with_chest_indrawing:
+	Conditions able_to_drink_or_feed, chest_indrawing
+	Actions give_oral_antibiotic, refer_to_facility, advise_to_give_fluids_and_feed
+	
+/* Managing severe fast breathing */		
+Recommendation can_feed_with_severe_fast_breathing:
+	Conditions able_to_drink_or_feed, age_2_months_or_more, age_less_12_months,
+		breath_count_of_50_or_more
+	Actions give_oral_antibiotic, refer_to_facility, advise_to_give_fluids_and_feed
+	
+/* Managing mild fast breathing */		
+Recommendation can_feed_with_mild_fast_breathing:
+	Conditions able_to_drink_or_feed, age_12_months_or_more, age_less_5_years,
+		breath_count_of_40_or_more, breath_count_less_50
+	Actions give_oral_antibiotic, prescribe_oral_antibiotic,
+		advise_to_give_fluids_and_feed, schedule_followup_appointment
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
